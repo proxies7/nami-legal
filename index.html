@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nami Accounting — automated purchase-bill bookkeeping</title>
+<meta name="description" content="Nami Accounting reads purchase bills and invoices from a Google Drive folder, records the ledger entries in Google Sheets, and files the documents. Privacy policy and terms of service.">
+<style>
+  :root { --ink:#101418; --muted:#5b6673; --line:#e3e7ec; --accent:#0b6bcb; --bg:#ffffff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Thai",sans-serif; }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  header { border-bottom:1px solid var(--line); margin-bottom:36px; padding-bottom:20px; }
+  .brand { font-weight:650; letter-spacing:-.01em; font-size:18px; }
+  .brand span { color:var(--accent); }
+  nav { margin-top:10px; font-size:14px; }
+  nav a { color:var(--muted); text-decoration:none; margin-right:18px; }
+  nav a:hover { color:var(--accent); }
+  h1 { font-size:30px; line-height:1.25; letter-spacing:-.02em; margin:0 0 8px; }
+  h2 { font-size:19px; margin:34px 0 10px; letter-spacing:-.01em; }
+  .sub { color:var(--muted); font-size:14px; }
+  p, li { color:#22282f; }
+  ul { padding-left:20px; }
+  li { margin:6px 0; }
+  code { background:#f4f6f8; padding:1px 5px; border-radius:4px; font-size:14px; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:15px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-weight:600; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+  footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line);
+           color:var(--muted); font-size:13px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body><div class="wrap">
+<header>
+  <div class="brand">Nami <span>Accounting</span></div>
+  <nav><a href="index.html">Home</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+</header>
+
+<h1>Automated purchase-bill bookkeeping</h1>
+<p class="sub">A private automation tool used by a small hospitality and restaurant group in Phuket, Thailand.</p>
+
+<h2>What the application does</h2>
+<p>Nami Accounting watches a single Google Drive folder for newly uploaded purchase bills and invoices
+(Thai <em>ใบกำกับภาษี</em>, <em>บิลเงินสด</em>, delivery notes and payment slips). For each document it:</p>
+<ul>
+  <li>downloads the file and reads it with an OCR / vision model to extract the vendor, tax ID, document number, date, line items, VAT and totals;</li>
+  <li>validates the arithmetic and checks the entry against a local de-duplication database;</li>
+  <li>appends the structured record to a Google Sheets ledger and moves the original file into an organised folder tree in the same Drive account;</li>
+  <li>sends a summary to the operator, and asks for confirmation when a document is handwritten or incomplete.</li>
+</ul>
+
+<h2>Google APIs used</h2>
+<table>
+  <tr><th>API</th><th>Scope</th><th>Purpose</th></tr>
+  <tr><td>Google Drive</td><td><code>drive</code></td><td>List, download, rename and move the purchase documents the operator uploads</td></tr>
+  <tr><td>Google Sheets</td><td><code>spreadsheets</code></td><td>Append transaction and line-item rows to the operator's own ledger spreadsheet</td></tr>
+  <tr><td>Google Docs</td><td><code>documents</code></td><td>Export monthly reports as documents</td></tr>
+</table>
+<p>Nothing else is requested. The application never asks for Gmail, Calendar or Contacts access.</p>
+
+<h2>Who can use it</h2>
+<p>The tool runs on a private server for a single organisation and its own Google account. It is not a public
+service and does not accept new users. It does not share data with advertisers and holds no third-party analytics.</p>
+
+<h2>Your data</h2>
+<p>Documents stay in the operator's own Google Drive account. Structured records stay in the operator's own
+Google Sheet and in a local SQLite database on the private server. Document images are sent to an AI inference
+provider solely to read the text — details in the <a href="privacy.html">Privacy Policy</a>.</p>
+
+<h2>Legal</h2>
+<ul>
+  <li><a href="privacy.html">Privacy Policy</a> — what is accessed, why, where it is stored, and how to delete it.</li>
+  <li><a href="terms.html">Terms of Service</a> — conditions of use and limitations.</li>
+</ul>
+<footer>
+  Nami Accounting — internal bookkeeping automation operated by Athikit Supap, Phuket, Thailand.
+  Contact: <a href="mailto:athikit.supab@gmail.com">athikit.supab@gmail.com</a> ·
+  Last updated: 3 November 2026
+</footer>
+</div></body></html>

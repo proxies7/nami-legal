@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Nami Accounting</title>
+<meta name="description" content="How Nami Accounting accesses, uses, stores and shares Google user data.">
+<style>
+  :root { --ink:#101418; --muted:#5b6673; --line:#e3e7ec; --accent:#0b6bcb; --bg:#ffffff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Thai",sans-serif; }
+  .wrap { max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  header { border-bottom:1px solid var(--line); margin-bottom:36px; padding-bottom:20px; }
+  .brand { font-weight:650; letter-spacing:-.01em; font-size:18px; }
+  .brand span { color:var(--accent); }
+  nav { margin-top:10px; font-size:14px; }
+  nav a { color:var(--muted); text-decoration:none; margin-right:18px; }
+  nav a:hover { color:var(--accent); }
+  h1 { font-size:30px; line-height:1.25; letter-spacing:-.02em; margin:0 0 8px; }
+  h2 { font-size:19px; margin:34px 0 10px; letter-spacing:-.01em; }
+  .sub { color:var(--muted); font-size:14px; }
+  p, li { color:#22282f; }
+  ul { padding-left:20px; }
+  li { margin:6px 0; }
+  code { background:#f4f6f8; padding:1px 5px; border-radius:4px; font-size:14px; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:15px; }
+  th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-weight:600; color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+  footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--line);
+           color:var(--muted); font-size:13px; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body><div class="wrap">
+<header>
+  <div class="brand">Nami <span>Accounting</span></div>
+  <nav><a href="index.html">Home</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+</header>
+
+<h1>Privacy Policy</h1>
+<p class="sub">Effective 3 November 2026 · applies to the Nami Accounting application and its use of Google APIs.</p>
+
+<p>Nami Accounting ("the application") is an internal bookkeeping automation operated by Athikit Supap
+("the operator", "we"). This policy explains exactly how the application accesses, uses, stores, shares and
+deletes Google user data. It applies to the Google account the operator authorises; the application is not
+offered to the public and has no end users other than the operator's own organisation.</p>
+
+<h2>1. Google user data we access</h2>
+<p>The application requests only these OAuth scopes, and only for the authorised account:</p>
+<table>
+  <tr><th>Scope</th><th>What it allows</th><th>What we actually read or write</th></tr>
+  <tr><td><code>https://www.googleapis.com/auth/drive</code></td>
+      <td>Full Drive access</td>
+      <td>Files inside the designated finance folders only: newly uploaded bills, invoices, delivery notes and payment slips. The application lists folder contents, downloads document files, renames them and moves them between folders of the same account.</td></tr>
+  <tr><td><code>https://www.googleapis.com/auth/spreadsheets</code></td>
+      <td>Full Sheets access</td>
+      <td>One ledger spreadsheet owned by the operator: it appends rows to the <em>Transactions</em> and <em>Items</em> tabs and reads them back for validation and reporting.</td></tr>
+  <tr><td><code>https://www.googleapis.com/auth/documents</code></td>
+      <td>Full Docs access</td>
+      <td>Creates and exports the operator's own monthly summary reports.</td></tr>
+</table>
+<p>We do not request or use Gmail, Calendar, Contacts, Photos or any other Google service. We do not read files
+outside the designated finance folders, and we do not browse the Drive account.</p>
+
+<h2>2. How the data is used</h2>
+<ul>
+  <li><strong>Extraction.</strong> Each document is read to produce a structured record: vendor name, tax ID, document number, date, line items with quantities and prices, VAT, total and payment method.</li>
+  <li><strong>Validation.</strong> The record is checked arithmetically (subtotal + VAT = total; quantity × unit price = line total) and against a local database to prevent duplicate entries.</li>
+  <li><strong>Recording.</strong> The validated record is appended to the operator's ledger spreadsheet.</li>
+  <li><strong>Filing.</strong> The original document is renamed to a descriptive filename and moved to a processed or review folder in the same Drive account.</li>
+  <li><strong>Reporting.</strong> Daily and monthly summaries are generated for the operator.</li>
+</ul>
+<p>The application performs no advertising, profiling, marketing or scoring, and makes no automated decisions
+about any individual.</p>
+
+<h2>3. Storage and retention</h2>
+<ul>
+  <li><strong>Google Drive / Sheets / Docs:</strong> documents and ledger rows remain in the operator's own Google account under the operator's control, subject to Google's terms and retention settings.</li>
+  <li><strong>Private server:</strong> the application stores extracted records in a local SQLite database, and keeps a working copy of a document only while it is being processed. Local copies are pruned automatically within 24 hours.</li>
+  <li><strong>OAuth credentials:</strong> access and refresh tokens are stored in a permission-restricted file (<code>0600</code>) on the private server, used only to call the Google APIs on the operator's behalf. They are never transmitted anywhere except to Google's token endpoint.</li>
+  <li><strong>Retention:</strong> extracted records are retained for accounting and tax purposes for the period Thai revenue law requires (generally five years). Anything else can be deleted on request.</li>
+</ul>
+
+<h2>4. Sharing with third parties</h2>
+<p>We do not sell, rent or share Google user data with advertisers, data brokers or analytics providers.
+Two categories of processors are used, strictly to deliver the function:</p>
+<ul>
+  <li><strong>Google LLC</strong> — Drive, Sheets and Docs APIs, as described above.</li>
+  <li><strong>AI inference providers</strong> — the image of a purchase document, and the text extracted from it, are sent to a large-language-model inference API so the document can be read. These requests contain only the document being processed and the instructions for reading it. They are not used to build a profile of the operator, and no Google account credentials, tokens or unrelated file contents are ever included.</li>
+</ul>
+<p>We may disclose data if legally compelled by a competent authority under Thai law.</p>
+
+<h2>5. Security</h2>
+<ul>
+  <li>Access to the private server is restricted to the operator; tokens are stored with owner-only file permissions and are never logged.</li>
+  <li>Transport to Google and to the inference provider uses TLS.</li>
+  <li>The application is single-tenant: one organisation, one Google account, no multi-user access model to breach.</li>
+</ul>
+
+<h2>6. Your choices, and how to revoke access</h2>
+<p>You can revoke the application's access to your Google account at any time at
+<a href="https://myaccount.google.com/permissions" rel="noopener">myaccount.google.com/permissions</a>.
+Revocation immediately stops all further access; the application will not be able to read or write any Drive,
+Sheets or Docs content from that moment.</p>
+<p>To request deletion of the records the application derived from your data — the local SQLite entries, the
+ledger rows, the generated reports, or all of them — write to
+<a href="mailto:athikit.supab@gmail.com">athikit.supab@gmail.com</a>. Requests are actioned within 30 days;
+ledger rows that must be kept for statutory accounting purposes will be identified in the reply rather than
+silently retained.</p>
+
+<h2>7. Children</h2>
+<p>The application is a business accounting tool. It is not directed at children and collects no data about them.</p>
+
+<h2>8. Changes to this policy</h2>
+<p>Material changes will be published on this page with a new effective date. Because this is a single-tenant
+internal tool, changes are also communicated directly to the operator.</p>
+
+<h2>9. Contact</h2>
+<p>Athikit Supap — Phuket, Thailand — <a href="mailto:athikit.supab@gmail.com">athikit.supab@gmail.com</a></p>
+<footer>
+  Nami Accounting — internal bookkeeping automation operated by Athikit Supap, Phuket, Thailand.
+  Contact: <a href="mailto:athikit.supab@gmail.com">athikit.supab@gmail.com</a> ·
+  Last updated: 3 November 2026
+</footer>
+</div></body></html>
